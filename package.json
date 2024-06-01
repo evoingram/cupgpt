@@ -1,0 +1,22 @@
+{
+  "name": "cupgpt-coding-monkey-wizard",
+  "version": "1.0.0",
+  "description": "a computer-science-related, coding- or programming-related custom ChatGPT prompt generator -- get better prompts for your coding questions.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/evoingram/cupgpt.git"
+  },
+  "author": "Erica L. Ingram",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.17.1",
+    "knex": "^0.95.4",
+    "pg": "^8.5.1",
+    "ssh2": "^0.8.9"
+  }
+}
