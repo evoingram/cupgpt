@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config(); // Load environment variables from .env file
 const express = require('express');
 const knex = require('knex');
 const knexConfig = require('./knexfile');
@@ -31,9 +31,7 @@ app.get('/test-db', async (req, res) => {
 });
 
 app.use('/topics', topicsRouter);
-
 app.use('/content', contentsRouter);
-
 app.use('/examples', examplesRouter);
 
 app.get('/verify-seed', async (req, res) => {
@@ -99,8 +97,8 @@ const handleSearchQuery = async (query) => {
         const res = await client.query(`
             SELECT topics.id AS topic_id, topics.name AS topic, content.id AS content_id, content.description, examples.id AS example_id, examples.language, examples.example
             FROM topics
-            JOIN content ON topics.id = content.topic_id
-            LEFT JOIN examples ON content.id = examples.content_id
+                     JOIN content ON topics.id = content.topic_id
+                     LEFT JOIN examples ON content.id = examples.content_id
             WHERE ${searchPatterns.map((_, index) => `
                 topics.name ILIKE $${index + 1} OR
                 content.description ILIKE $${index + 1} OR
@@ -175,7 +173,12 @@ const generateRawOutput = (results, originalQuery, bulletedList) => {
     return output;
 };
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+// Use TESTING_PORT for testing and PORT for normal usage
+const PORT = process.env.TESTING_PORT || process.env.PORT || 3000;
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+    });
+}
+
+module.exports = app; // Export the app for testing purposes
