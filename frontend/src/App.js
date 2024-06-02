@@ -7,6 +7,10 @@ function App() {
   const [results, setResults] = useState([]);
   const [rawOutput, setRawOutput] = useState('');
   const [bulletedList, setBulletedList] = useState(false);
+  const [accuracy, setAccuracy] = useState(false);
+  const [includeSources, setIncludeSources] = useState(false);
+  const [myWritingStyle, setMyWritingStyle] = useState(false);
+  const [searchTheInternet, setSearchTheInternet] = useState(false);
 
   // WebSocket initialization
   useEffect(() => {
@@ -31,8 +35,26 @@ function App() {
 
   const handleSearch = async () => {
     try {
+      let additionalText = "";
+
+      if (bulletedList) {
+        additionalText += " Please give this to me in a detailed bulleted list format.";
+      }
+      if (accuracy) {
+        additionalText += " Please be as accurate as possible and do not make anything up.";
+      }
+      if (includeSources) {
+        additionalText += " Please include the sources you used to provide this information.";
+      }
+      if (myWritingStyle) {
+        additionalText += " Please write this in my writing style as much as possible.";
+      }
+      if (searchTheInternet) {
+        additionalText += " Please search the internet for the most up-to-date information as possible on this inquiry.";
+      }
+
       const response = await axios.post('http://localhost:3000/query', {
-        query: query,
+        query: query + additionalText,
         options: { bulletedList }
       });
       setResults(response.data.results);
@@ -68,6 +90,38 @@ function App() {
                   onChange={(e) => setBulletedList(e.target.checked)}
               />
               Bulleted List
+            </label>
+            <label>
+              <input
+                  type="checkbox"
+                  checked={accuracy}
+                  onChange={(e) => setAccuracy(e.target.checked)}
+              />
+              Accuracy
+            </label>
+            <label>
+              <input
+                  type="checkbox"
+                  checked={includeSources}
+                  onChange={(e) => setIncludeSources(e.target.checked)}
+              />
+              Include Sources
+            </label>
+            <label>
+              <input
+                  type="checkbox"
+                  checked={myWritingStyle}
+                  onChange={(e) => setMyWritingStyle(e.target.checked)}
+              />
+              My Writing Style
+            </label>
+            <label>
+              <input
+                  type="checkbox"
+                  checked={searchTheInternet}
+                  onChange={(e) => setSearchTheInternet(e.target.checked)}
+              />
+              Search the Internet
             </label>
           </div>
           <button className="primary" onClick={handleSearch} aria-label="Search">Search</button>

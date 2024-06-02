@@ -5,11 +5,13 @@ const knexConfig = require('./knexfile');
 const db = knex(knexConfig.development);
 const cors = require('cors');
 const { Client } = require('pg');
+const topicsRouter = require('./API/topics/topicsRouter');
+const contentsRouter = require('./API/contents/contentsRouter');
+const examplesRouter = require('./API/examples/examplesRouter');
 
 const app = express();
 app.use(express.json());
 
-// Enable CORS
 app.use(cors({ origin: 'http://localhost:3001' }));
 
 // Root route for basic check
@@ -28,62 +30,11 @@ app.get('/test-db', async (req, res) => {
     }
 });
 
-// Define your routes here
-app.post('/topics', async (req, res) => {
-    const { name } = req.body;
-    try {
-        const [id] = await db('topics').insert({ name }).returning('id');
-        res.status(201).json({ id });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Failed to insert topic' });
-    }
-});
+app.use('/topics', topicsRouter);
 
-app.post('/content', async (req, res) => {
-    const { topic_id, description } = req.body;
-    try {
-        const [id] = await db('content').insert({
-            topic_id,
-            description,
-            tsv_content: db.raw("to_tsvector('english', ?)", [description])
-        }).returning('id');
-        res.status(201).json({ id });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Failed to insert content' });
-    }
-});
+app.use('/content', contentsRouter);
 
-app.post('/topics/link', async (req, res) => {
-    const { parent_topic_id, child_topic_id } = req.body;
-    try {
-        await db('topic_relationships').insert({ parent_topic_id, child_topic_id });
-        res.status(201).json({ message: 'Topics linked successfully' });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Failed to link topics' });
-    }
-});
-
-app.get('/content/search', async (req, res) => {
-    const { topic } = req.query;
-    try {
-        const parentId = await db('topics').where({ name: topic }).select('id').first();
-        if (!parentId) {
-            return res.status(404).json({ error: 'Topic not found' });
-        }
-        const results = await db('content')
-            .join('topic_relationships', 'content.topic_id', 'topic_relationships.child_topic_id')
-            .where('topic_relationships.parent_topic_id', parentId.id)
-            .orWhere('content.topic_id', parentId.id)
-            .select('content.description');
-        res.json(results);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Failed to search content' });
-    }
-});
+app.use('/examples', examplesRouter);
 
 app.get('/verify-seed', async (req, res) => {
     try {
@@ -99,6 +50,7 @@ app.get('/verify-seed', async (req, res) => {
 
 app.post('/query', async (req, res) => {
     const { query, options } = req.body;
+    console.log('First /query endpoint called');
 
     try {
         console.log('Received query:', query);
@@ -201,7 +153,6 @@ const handleSearchQuery = async (query) => {
     }
 };
 
-
 const generateRawOutput = (results, originalQuery, bulletedList) => {
     let output = `Query: ${originalQuery}\n\n`;
 
@@ -223,25 +174,6 @@ const generateRawOutput = (results, originalQuery, bulletedList) => {
 
     return output;
 };
-
-// Updated /query endpoint
-app.post('/query', async (req, res) => {
-    const { query, options } = req.body;
-
-    try {
-        console.log('Received query:', query);
-        const { results, originalQuery } = await handleSearchQuery(query);
-        console.log('Search results:', results);
-        const rawOutput = generateRawOutput(results, originalQuery, options.bulletedList);
-
-        res.status(200).json({ results, rawOutput });
-    } catch (error) {
-        console.error('Error in /query endpoint:', error);
-        res.status(500).json({ error: 'Failed to fetch data' });
-    }
-});
-
-
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
