@@ -44,16 +44,6 @@ a:hover {
   text-decoration: underline;
 }
 
-footer {
-  background-color: #000000; /* Black */
-  color: #FFFFFF; /* White */
-  text-align: center;
-  padding: 10px;
-  position: fixed;
-  width: 100%;
-  bottom: 0;
-}
-
 input[type="text"] {
   padding: 10px;
   margin: 10px;
@@ -95,4 +85,9 @@ button.primary:hover {
 button.secondary:hover {
   background-color: #4B0082; /* Dark Purple */
   color: #FFFFFF; /* White */
+}
+
+/* Add margin to the main content */
+main {
+  margin: 10px; /* Add margin around the main content */
 }

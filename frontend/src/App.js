@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './App.css';
 
@@ -91,9 +91,10 @@ function App() {
           <pre>{rawOutput}</pre>
           <button className="secondary" onClick={() => copyToClipboard(rawOutput)} aria-label="Copy Raw Output">Copy Raw Output</button>
         </main>
-        <footer>
-          <p>Footer content</p>
-        </footer>
+        {/* Remove or comment out the footer */}
+        {/* <footer>
+        <p>Footer content</p>
+      </footer> */}
       </div>
   );
 }
