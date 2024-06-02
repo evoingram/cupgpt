@@ -3,7 +3,7 @@
 
 ## Project Overview
 
-This project is designed to serve as a coding documentation tool with a backend built using Node.js, Express, and PostgreSQL, and a frontend built with React. The backend provides a RESTful API for managing coding topics, content, and examples, while the frontend allows users to search and interact with this content.
+This project is a ChatGPT prompt generator for coding, programming, and computer science themed inquiries, with a backend built using Node.js, Express, and PostgreSQL, and a frontend built with React. The backend provides a RESTful API for managing coding topics, content, and examples, while the frontend allows users to search and interact with this content.
 
 ## Key Features
 
