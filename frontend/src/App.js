@@ -83,7 +83,7 @@ function App() {
               placeholder="Enter your query"
           />
           <div className="options">
-            <label>
+            <label title="test text bulleted-list">
               <input
                   type="checkbox"
                   checked={bulletedList}
@@ -91,7 +91,7 @@ function App() {
               />
               Bulleted List
             </label>
-            <label>
+            <label title="test text accuracy">
               <input
                   type="checkbox"
                   checked={accuracy}
@@ -99,7 +99,7 @@ function App() {
               />
               Accuracy
             </label>
-            <label>
+            <label title="test text include-sources">
               <input
                   type="checkbox"
                   checked={includeSources}
@@ -107,7 +107,7 @@ function App() {
               />
               Include Sources
             </label>
-            <label>
+            <label title="test text my-writing-style">
               <input
                   type="checkbox"
                   checked={myWritingStyle}
@@ -115,7 +115,7 @@ function App() {
               />
               My Writing Style
             </label>
-            <label>
+            <label title="test text search-the-internet">
               <input
                   type="checkbox"
                   checked={searchTheInternet}
@@ -143,7 +143,18 @@ function App() {
           ))}
           <h2>Raw Output</h2>
           <pre>{rawOutput}</pre>
-          <button className="secondary" onClick={() => copyToClipboard(rawOutput)} aria-label="Copy Raw Output">Copy Raw Output</button>
+          <div className="button-group">
+            <button className="secondary" onClick={() => copyToClipboard(rawOutput)} aria-label="Copy Raw Output">Copy Raw Output</button>
+            <button className="secondary" onClick={() => window.open('https://chat.openai.com', '_blank')} aria-label="Open ChatGPT">Open ChatGPT</button>
+          </div>
+          <div className="tips-window">
+            <h3>Tips</h3>
+            <ul>
+              <li>Bulleted list tip 1</li>
+              <li>Bulleted list tip 2</li>
+              <li>Bulleted list tip 3</li>
+            </ul>
+          </div>
         </main>
         {/* Remove or comment out the footer */}
         {/* <footer>
