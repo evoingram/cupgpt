@@ -39,9 +39,11 @@ async function setupDatabase() {
 
         console.log('Running migrations...');
         await runCommand('npx knex migrate:latest');
+        console.log('Migrations completed successfully...');
 
         console.log('Seeding the database...');
         await runCommand('npx knex seed:run');
+        console.log('Database seeded successfully...');
 
         console.log('Database setup completed successfully');
 

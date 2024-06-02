@@ -1,7 +1,9 @@
 // seeds/seed_data.js
 exports.seed = function(knex) {
     // Deletes ALL existing entries
-    return knex('topics').del()
+    return knex('examples').del() // Then, delete entries from 'examples'
+        .then(() => knex('content').del()) // First, delete entries from 'content'
+        .then(() => knex('topics').del()) // Then, delete entries from 'topics'
         .then(function () {
             // Inserts seed entries for topics
             return knex('topics').insert([

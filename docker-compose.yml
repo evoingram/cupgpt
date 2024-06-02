@@ -18,7 +18,8 @@ services:
       - .env
 
   app:
-    build: .
+    build:
+      context: ./backend
     depends_on:
       db:
         condition: service_healthy
