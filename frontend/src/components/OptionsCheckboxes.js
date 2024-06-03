@@ -9,31 +9,31 @@ function OptionsCheckboxes({ options, handleCheckboxChange }) {
                 label="Bulleted List"
                 checked={options.bulletedList}
                 onChange={handleCheckboxChange('bulletedList')}
-                title="Bulleted List"
+                title="Format the output as a bulleted list."
             />
             <Checkbox
                 label="Accuracy"
                 checked={options.accuracy}
                 onChange={handleCheckboxChange('accuracy')}
-                title="Accuracy"
+                title="Ensure the output is as accurate as possible."
             />
             <Checkbox
                 label="Include Sources"
                 checked={options.includeSources}
                 onChange={handleCheckboxChange('includeSources')}
-                title="Include Sources"
+                title="Include the sources used to provide this information."
             />
             <Checkbox
                 label="My Writing Style"
                 checked={options.myWritingStyle}
                 onChange={handleCheckboxChange('myWritingStyle')}
-                title="My Writing Style"
+                title="Write the output in my writing style."
             />
             <Checkbox
                 label="Search the Internet"
                 checked={options.searchInternet}
                 onChange={handleCheckboxChange('searchInternet')}
-                title="Search the Internet"
+                title="Search the internet for the most up-to-date information."
             />
         </div>
     );
@@ -45,4 +45,3 @@ OptionsCheckboxes.propTypes = {
 };
 
 export default OptionsCheckboxes;
-

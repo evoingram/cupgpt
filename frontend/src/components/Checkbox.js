@@ -5,7 +5,7 @@ function Checkbox({
   label, checked, onChange, title,
 }) {
   return (
-    <label>
+    <label title={title}>
       <input type="checkbox" checked={checked} onChange={onChange} title={title} />
       {label}
     </label>

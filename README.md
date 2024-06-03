@@ -4,7 +4,7 @@
 
 This project is a ChatGPT prompt generator for coding, programming, and computer science-themed inquiries, with a backend built using Node.js, Express, and PostgreSQL, and a frontend built with React. The backend provides a RESTful API for managing coding topics, content, and examples, while the frontend allows users to search and interact with this content.
 
-CupGPT Coding Monkey Wizard helps developers and students by generating high-quality ChatGPT prompts tailored for coding and programming inquiries. This tool enhances the efficiency and accuracy of ChatGPT responses, saving time and improving the overall learning and development experience.
+CupGPT Coding Monkey Wizard helps developers and students by generating high-quality ChatGPT prompts tailored for coding and programming inquiries. This tool uses your study notes to enhance the efficiency and accuracy of ChatGPT responses, saving time and improving the overall learning and development experience.
 
 ## Key Features
 
@@ -29,17 +29,6 @@ CupGPT Coding Monkey Wizard helps developers and students by generating high-qua
 - `docker-compose down`: Stops the backend, frontend, and database services
 - `docker volume prune -f`: Removes Docker volumes to reset the database
 
-## API Documentation
-
-- **Topics**
-    - `POST /topics`: Create a new topic
-    - `POST /topics/link`: Link parent and child topics
-- **Content**
-    - `POST /content`: Create new content for a topic
-    - `GET /content/search`: Search for content by topic
-- **Examples**
-    - `POST /examples`: Add examples to content
-
 ## Testing
 
 - **Backend**: Jest
@@ -55,14 +44,33 @@ CupGPT Coding Monkey Wizard helps developers and students by generating high-qua
 
 ## API Documentation
 
-- **Topics**
-    - `POST /topics`: Create a new topic
-    - `POST /topics/link`: Link parent and child topics
-- **Content**
-    - `POST /content`: Create new content for a topic
-    - `GET /content/search`: Search for content by topic
-- **Examples**
-    - `POST /examples`: Add examples to content
+### API Endpoints
+
+| **Endpoint**            | **HTTP Method** | **Description**                                     | **Parameters**                                                                                                                                         |
+|-------------------------|-----------------|-----------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `/contents`             | POST            | Create new content for a topic.                     | `topic_id` (body), `description` (body)                                                                                                                |
+| `/contents`             | GET             | Retrieve a list of all content items.               | None                                                                                                                                                   |
+| `/contents/:id`         | GET             | Retrieve a specific content item by ID.             | `id` (path)                                                                                                                                            |
+| `/contents/:id`         | PUT             | Update a specific content item by ID.               | `id` (path), `topic_id` (body), `description` (body)                                                                                                   |
+| `/contents/:id`         | DELETE          | Delete a specific content item by ID.               | `id` (path)                                                                                                                                            |
+| `/contents/search`      | GET             | Search for content by topic.                        | `topic` (query parameter)                                                                                                                              |
+| `/examples`             | POST            | Create a new example for content.                   | `content_id` (body), `language` (body), `example` (body)                                                                                               |
+| `/examples`             | GET             | Retrieve a list of all examples.                    | None                                                                                                                                                   |
+| `/examples/:id`         | GET             | Retrieve a specific example by ID.                  | `id` (path)                                                                                                                                            |
+| `/examples/:id`         | PUT             | Update a specific example by ID.                    | `id` (path), `content_id` (body), `language` (body), `example` (body)                                                                                  |
+| `/examples/:id`         | DELETE          | Delete a specific example by ID.                    | `id` (path)                                                                                                                                            |
+| `/search/content`       | GET             | Search for content by topic.                        | `topic` (query parameter)                                                                                                                              |
+| `/search/query`         | POST            | Searches for content by a query string and options. | `query` (body), `options`: JSON object containing options like `bulletedList`, `accuracy`, `includeSources`, `myWritingStyle`, `searchInternet` (body) |
+| `/stats/topics/count`   | GET             | Get count of topics.                                | None                                                                                                                                                   |
+| `/stats/content/count`  | GET             | Get count of content items.                         | None                                                                                                                                                   |
+| `/stats/examples/count` | GET             | Get count of examples.                              | None                                                                                                                                                   |
+| `/topics`               | POST            | Create a new topic.                                 | `name` (body)                                                                                                                                          |
+| `/topics`               | GET             | Retrieve a list of all topics.                      | None                                                                                                                                                   |
+| `/topics/:id`           | GET             | Retrieve a specific topic by ID.                    | `id` (path)                                                                                                                                            |
+| `/topics/:id`           | PUT             | Update a specific topic by ID.                      | `id` (path), `name` (body)                                                                                                                             |
+| `/topics/:id`           | DELETE          | Delete a specific topic by ID.                      | `id` (path)                                                                                                                                            |
+| `/topics/link`          | POST            | Link parent and child topics.                       | `parent_topic_id` (body), `child_topic_id` (body)                                                                                                      |
+
 
 ## Testing
 
