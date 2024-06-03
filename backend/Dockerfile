@@ -1,3 +1,4 @@
+# backend/Dockerfile
 FROM node:14
 
 WORKDIR /usr/src/app
@@ -11,6 +12,6 @@ COPY .. .
 EXPOSE 3000
 
 # Add the health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 CMD curl -f http://localhost:3000/ || exit 1
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 CMD curl -f http://localhost:3000/health || exit 1
 
-CMD ["node", "index.js"]
+CMD ["npm", "start"]

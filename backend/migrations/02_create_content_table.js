@@ -1,6 +1,6 @@
 // migrations/02_create_content_table.js
-exports.up = function(knex) {
-    return knex.schema.createTable('content', function(table) {
+exports.up = function (knex) {
+    return knex.schema.createTable('content', function (table) {
         table.increments('id').primary();
         table.integer('topic_id').references('id').inTable('topics');
         table.text('description');
@@ -10,6 +10,6 @@ exports.up = function(knex) {
     });
 };
 
-exports.down = function(knex) {
+exports.down = function (knex) {
     return knex.schema.dropTable('content');
 };

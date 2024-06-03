@@ -1,16 +1,19 @@
-
 # CupGPT Coding Monkey Wizard
 
 ## Project Overview
 
-This project is a ChatGPT prompt generator for coding, programming, and computer science themed inquiries, with a backend built using Node.js, Express, and PostgreSQL, and a frontend built with React. The backend provides a RESTful API for managing coding topics, content, and examples, while the frontend allows users to search and interact with this content.
+This project is a ChatGPT prompt generator for coding, programming, and computer science-themed inquiries, with a backend built using Node.js, Express, and PostgreSQL, and a frontend built with React. The backend provides a RESTful API for managing coding topics, content, and examples, while the frontend allows users to search and interact with this content.
+
+CupGPT Coding Monkey Wizard helps developers and students by generating high-quality ChatGPT prompts tailored for coding and programming inquiries. This tool enhances the efficiency and accuracy of ChatGPT responses, saving time and improving the overall learning and development experience.
 
 ## Key Features
 
 - RESTful API with CRUD operations for coding topics, content, and examples
-- Search functionality with support for bulleted list formatting
-- Frontend built with React for querying and displaying coding documentation
+- Search functionality to make ChatGPT queries more productive
 - CORS enabled for frontend-backend communication
+- Checkboxes to customize output prompt, including options for bulleted list formatting, accuracy, including sources, writing style, and up-to-date information
+- Tip window to help the user write better queries
+- Tooltips on checkboxes to describe their functionality
 
 ## Tech Stack
 
@@ -24,7 +27,7 @@ This project is a ChatGPT prompt generator for coding, programming, and computer
 
 - `docker-compose up --build`: Builds and starts the backend, frontend, and database services
 - `docker-compose down`: Stops the backend, frontend, and database services
-- `docker volume rm $(docker volume ls -q)`: Removes Docker volumes to reset the database
+- `docker volume prune -f`: Removes Docker volumes to reset the database
 
 ## API Documentation
 
@@ -39,8 +42,32 @@ This project is a ChatGPT prompt generator for coding, programming, and computer
 
 ## Testing
 
-- **Backend**: Jest (to be implemented)
-- **Frontend**: Cypress (to be implemented)
+- **Backend**: Jest
+- **Frontend**: Cypress
+
+## How to Run the Project
+
+1. **Clone the repository:**
+   ```bash
+   git clone git@github.com:evoingram/cupgpt.git
+   cd cupgpt
+
+
+## API Documentation
+
+- **Topics**
+    - `POST /topics`: Create a new topic
+    - `POST /topics/link`: Link parent and child topics
+- **Content**
+    - `POST /content`: Create new content for a topic
+    - `GET /content/search`: Search for content by topic
+- **Examples**
+    - `POST /examples`: Add examples to content
+
+## Testing
+
+- **Backend**: Jest
+- **Frontend**: Cypress
 
 ## How to Run the Project
 
@@ -71,7 +98,7 @@ This project is a ChatGPT prompt generator for coding, programming, and computer
 
 5. **Remove Docker volumes to reset the database:**
    ```bash
-   docker volume rm $(docker volume ls -q)
+   docker volume prune -f
    ```
 
 ## How to Use The Deployed Project

@@ -1,0 +1,12 @@
+{
+  "baseUrl": "http://localhost:3001",
+  "video": false,
+  "screenshotsFolder": "cypress/screenshots",
+  "videosFolder": "cypress/videos",
+  "integrationFolder": "cypress/integration",
+  "env": {
+    "codeCoverage": {
+      "url": "/__coverage__"
+    }
+  }
+}

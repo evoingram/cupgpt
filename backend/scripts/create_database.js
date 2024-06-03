@@ -1,5 +1,5 @@
-const { Client } = require('pg');
-const { exec } = require('child_process');
+const {Client} = require('pg');
+const {exec} = require('child_process');
 require('dotenv').config();
 
 const client = new Client({
@@ -9,20 +9,23 @@ const client = new Client({
     password: process.env.DB_PASSWORD
 });
 
-async function runCommand(command) {
+const runCommand = (command) => {
     return new Promise((resolve, reject) => {
         exec(command, (error, stdout, stderr) => {
             if (error) {
                 console.error(`Error executing command: ${command}`, error);
                 return reject(error);
             }
+            if (stderr) {
+                console.error(`Standard error executing command: ${command}`, stderr);
+            }
             console.log(`Command executed successfully: ${command}`, stdout);
             resolve(stdout);
         });
     });
-}
+};
 
-async function setupDatabase() {
+const setupDatabase = async () => {
     try {
         await client.connect();
         console.log('Connected to the database');
@@ -34,24 +37,22 @@ async function setupDatabase() {
         } else {
             console.log(`Database ${process.env.DB_NAME} already exists`);
         }
+
         await client.end();
         console.log('Disconnected from the database');
 
         console.log('Running migrations...');
         await runCommand('npx knex migrate:latest');
-        console.log('Migrations completed successfully...');
+        console.log('Migrations completed successfully');
 
         console.log('Seeding the database...');
         await runCommand('npx knex seed:run');
-        console.log('Database seeded successfully...');
+        console.log('Database seeded successfully');
 
         console.log('Database setup completed successfully');
 
         console.log('Starting the backend...');
         await runCommand('npm start');
-
-        // console.log('Starting the frontend...');
-        // await runCommand('cd frontend && npm start');
 
     } catch (err) {
         console.error('Error setting up database:', err);
@@ -59,6 +60,6 @@ async function setupDatabase() {
             await client.end();
         }
     }
-}
+};
 
 setupDatabase();
