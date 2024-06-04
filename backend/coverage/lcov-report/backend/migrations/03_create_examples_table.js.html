@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">90.9% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>10/11</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">90.9% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>10/11</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -80,35 +80,35 @@
 <a name='L15'></a><a href='#L15'>15</a>
 <a name='L16'></a><a href='#L16'>16</a>
 <a name='L17'></a><a href='#L17'>17</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// migrations/03_create_examples_table.js
-<span class="cstat-no" title="statement not covered" >exports.up = <span class="fstat-no" title="function not covered" >fu</span>nction(knex) {</span>
-<span class="cstat-no" title="statement not covered" >    return knex.schema.createTable('examples', <span class="fstat-no" title="function not covered" >fu</span>nction(table) {</span>
-<span class="cstat-no" title="statement not covered" >        table.increments('id').primary();</span>
-<span class="cstat-no" title="statement not covered" >        table.integer('content_id').references('id').inTable('content');</span>
-<span class="cstat-no" title="statement not covered" >        table.string('language');</span>
-<span class="cstat-no" title="statement not covered" >        table.text('example');</span>
-<span class="cstat-no" title="statement not covered" >        table.timestamp('created_at').defaultTo(knex.fn.now());</span>
-<span class="cstat-no" title="statement not covered" >        table.timestamp('updated_at').defaultTo(knex.fn.now());</span>
-<span class="cstat-no" title="statement not covered" >        table.specificType('tsv_example', 'tsvector');</span>
+exports.up = function (knex) {
+    return knex.schema.createTable('examples', function (table) {
+        table.increments('id').primary();
+        table.integer('content_id').references('id').inTable('content');
+        table.string('language');
+        table.text('example');
+        table.timestamp('created_at').defaultTo(knex.fn.now());
+        table.timestamp('updated_at').defaultTo(knex.fn.now());
+        table.specificType('tsv_example', 'tsvector');
     });
 };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >exports.down = <span class="fstat-no" title="function not covered" >fu</span>nction(knex) {</span>
+exports.down = <span class="fstat-no" title="function not covered" >fu</span>nction (knex) {
 <span class="cstat-no" title="statement not covered" >    return knex.schema.dropTable('examples');</span>
 };
 &nbsp;</pre></td></tr></table></pre>
@@ -118,7 +118,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2024-06-02T11:27:49.835Z
+                at 2024-06-04T23:25:41.884Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

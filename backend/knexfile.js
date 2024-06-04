@@ -1,5 +1,4 @@
-// knexfile.js
-require('dotenv').config({path: '../.env'});
+require('dotenv').config({ path: '../.env' });
 
 module.exports = {
     development: {
@@ -16,6 +15,16 @@ module.exports = {
         },
         seeds: {
             directory: './seeds'
+        }
+    },
+    test: {
+        client: 'pg',
+        connection: {
+            host: process.env.TEST_DB_HOST,
+            port: process.env.TEST_DB_PORT,
+            user: process.env.DB_USERNAME,
+            password: process.env.DB_PASSWORD,
+            database: process.env.TEST_DB_NAME
         }
     }
 };

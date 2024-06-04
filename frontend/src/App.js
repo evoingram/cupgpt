@@ -17,6 +17,7 @@ function App() {
         includeSources: false,
         myWritingStyle: false,
         searchInternet: false,
+        bestPractices: false
     });
 
     const handleCheckboxChange = (option) => (event) => {

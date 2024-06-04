@@ -1,4 +1,4 @@
-const { connectToDatabase, disconnectFromDatabase } = require('./database');
+const { connectToDatabase, disconnectFromDatabase } = require('./connect_database');
 
 const handleSearchQuery = async (query, options = {}) => {
     console.log(`Starting to handle search query: ${query}.`);
@@ -120,6 +120,9 @@ const generateRawOutput = (results, originalQuery, options = {}) => {
     }
     if (options.searchInternet) {
         output += "\n\nPlease search the internet for the most up-to-date information as possible on this inquiry.";
+    }
+    if (options.bestPractices) {
+        output += "\n\nPlease apply best practices and clean code principles to wherever it is appropriate and as much as possible.";
     }
 
     console.log("Done generating raw output.");

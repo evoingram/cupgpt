@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { handleSearchQuery } = require('../../search');
+const { handleSearchQuery } = require('../../utils/search_service');
 const searchModel = require('./searchModel');
 
 // Search for content by topic using GET

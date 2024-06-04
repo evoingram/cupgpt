@@ -1,7 +1,10 @@
-const knexConfig = require('../../knexfile');
-const knex = require('knex')(knexConfig.development);
 
-const createContent = async (data) => {
+
+const createContent = async (data, knex) => {
+    if (!data.topic_id || !data.description) {
+        throw new Error('Missing required fields: topic_id, description');
+    }
+
     try {
         return await knex('content').insert(data).returning('id');
     } catch (error) {
@@ -10,7 +13,8 @@ const createContent = async (data) => {
     }
 };
 
-const getAllContent = async () => {
+
+const getAllContent = async (knex) => {
     try {
         return await knex('content').select('*');
     } catch (error) {
@@ -19,7 +23,7 @@ const getAllContent = async () => {
     }
 };
 
-const getContentById = async (id) => {
+const getContentById = async (id, knex) => {
     try {
         return await knex('content').where({id}).first();
     } catch (error) {
@@ -28,7 +32,7 @@ const getContentById = async (id) => {
     }
 };
 
-const updateContentById = async (id, data) => {
+const updateContentById = async (id, data, knex) => {
     try {
         return await knex('content').where({id}).update(data);
     } catch (error) {
@@ -37,7 +41,7 @@ const updateContentById = async (id, data) => {
     }
 };
 
-const deleteContentById = async (id) => {
+const deleteContentById = async (id, knex) => {
     try {
         return await knex('content').where({id}).del();
     } catch (error) {
@@ -46,22 +50,31 @@ const deleteContentById = async (id) => {
     }
 };
 
-const searchContentByTopic = async (topic) => {
+const searchContentByTopic = async (topic, knex) => {
     try {
         const parentId = await knex('topics').where({name: topic}).select('id').first();
+        console.log('Parent ID:', parentId); // Log the parentId
+
         if (!parentId) {
-            return null;
+            return [];
         }
-        return await knex('content')
-            .join('topic_relationships', 'content.topic_id', 'topic_relationships.child_topic_id')
+
+        const results = await knex('content')
+            .leftJoin('topic_relationships', 'content.topic_id', 'topic_relationships.child_topic_id')
             .where('topic_relationships.parent_topic_id', parentId.id)
             .orWhere('content.topic_id', parentId.id)
             .select('content.description');
+
+        console.log('Results:', results); // Log the results
+
+        return results || [];
     } catch (error) {
         console.error(`Error searching content by topic (${topic}):`, error);
         throw error;
     }
 };
+
+
 
 module.exports = {
     createContent,

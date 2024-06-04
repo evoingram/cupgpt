@@ -1,6 +1,7 @@
 const {Client} = require('pg');
 const {exec} = require('child_process');
-require('dotenv').config();
+const knexConfig = require("../knexfile");
+require('dotenv').config({ path: '../.env' });
 
 const client = new Client({
     host: process.env.DB_HOST,
@@ -62,4 +63,12 @@ const setupDatabase = async () => {
     }
 };
 
-setupDatabase();
+const generateKnexClient = (typedKnexConfig) => {
+    const knexConfig = require('../knexfile');
+    const newTypedKnexConfig = (typedKnexConfig === 'development') ? knexConfig.development : knexConfig.test;
+    return require('knex')(newTypedKnexConfig);
+}
+
+setupDatabase().then(r => console.log('database setup complete.'));
+
+module.exports = { runCommand, generateKnexClient };

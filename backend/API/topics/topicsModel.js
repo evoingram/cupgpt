@@ -1,7 +1,4 @@
-const knexConfig = require('../../knexfile');
-const knex = require('knex')(knexConfig.development);
-
-const createTopic = async (data) => {
+const createTopic = async (data, knex) => {
     try {
         return await knex('topics').insert(data).returning('id');
     } catch (error) {
@@ -10,7 +7,7 @@ const createTopic = async (data) => {
     }
 };
 
-const getAllTopics = async () => {
+const getAllTopics = async (knex) => {
     try {
         return await knex('topics').select('*');
     } catch (error) {
@@ -19,7 +16,7 @@ const getAllTopics = async () => {
     }
 };
 
-const getTopicById = async (id) => {
+const getTopicById = async (id, knex) => {
     try {
         return await knex('topics').where({id}).first();
     } catch (error) {
@@ -28,7 +25,7 @@ const getTopicById = async (id) => {
     }
 };
 
-const updateTopicById = async (id, data) => {
+const updateTopicById = async (id, data, knex) => {
     try {
         return await knex('topics').where({id}).update(data);
     } catch (error) {
@@ -37,7 +34,7 @@ const updateTopicById = async (id, data) => {
     }
 };
 
-const deleteTopicById = async (id) => {
+const deleteTopicById = async (id, knex) => {
     try {
         return await knex('topics').where({id}).del();
     } catch (error) {
@@ -46,7 +43,7 @@ const deleteTopicById = async (id) => {
     }
 };
 
-const linkTopics = async (parent_topic_id, child_topic_id) => {
+const linkTopics = async (parent_topic_id, child_topic_id, knex) => {
     try {
         return await knex('topic_relationships').insert({parent_topic_id, child_topic_id});
     } catch (error) {

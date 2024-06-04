@@ -1,5 +1,5 @@
 const {Client} = require('pg');
-require('dotenv').config();
+require('dotenv').config({ path: '../.env' });
 
 const connectToDatabase = async () => {
     console.log("Connecting to db.")

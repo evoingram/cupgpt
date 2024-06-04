@@ -21,32 +21,38 @@ function Header({
           label="Bulleted List"
           checked={options.bulletedList}
           onChange={handleCheckboxChange('bulletedList')}
-          title="test text bulleted list"
+          title="Please put your response into a bulleted list format."
         />
         <Checkbox
           label="Accuracy"
           checked={options.accuracy}
           onChange={handleCheckboxChange('accuracy')}
-          title="test text accuracy"
+          title="Please be as accurate as possible and do not make anything up."
         />
         <Checkbox
           label="Include Sources"
           checked={options.includeSources}
           onChange={handleCheckboxChange('includeSources')}
-          title="test text include sources"
+          title="Include the sources you used to write your response."
         />
         <Checkbox
           label="My Writing Style"
           checked={options.myWritingStyle}
           onChange={handleCheckboxChange('myWritingStyle')}
-          title="test text my writing style"
+          title="Use my writing style to write your response."
         />
         <Checkbox
           label="Search the Internet"
           checked={options.searchInternet}
           onChange={handleCheckboxChange('searchInternet')}
-          title="test text search the internet"
+          title="Search the internet for the most up-to-date information."
         />
+          <Checkbox
+              label="Best Practices"
+              checked={options.bestPractices}
+              onChange={handleCheckboxChange('bestPractices')}
+              title="Apply clean code principles and best practices."
+          />
       </div>
       <button className="primary" onClick={handleSearch} aria-label="Search">Search</button>
     </header>
