@@ -19,7 +19,7 @@ describe('connectToDatabase', () => {
         console.log = jest.fn();
         await connectToDatabase();
         expect(console.log).toHaveBeenCalledWith('Connecting to db.');
-        expect(console.log).toHaveBeenCalledWith('Done connecting to db.');
+        expect(console.log).toHaveBeenCalledWith('done connecting to db.');
     });
 });
 
