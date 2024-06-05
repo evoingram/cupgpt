@@ -1,5 +1,6 @@
 const {Client} = require("pg");
 require('dotenv').config({ path: '../.env' });
+const {runCommand} = require('../utils/create_database');
 
 const createTestDatabase = async () => {
     console.log('Running createTestDatabase.');

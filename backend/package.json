@@ -19,7 +19,6 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.17.1",
-    "globals": "^15.3.0",
     "knex": "^0.95.4",
     "pg": "^8.5.1",
     "ssh2": "^0.8.9"
@@ -35,9 +34,6 @@
     "globalTeardown": "./tests/teardown_test_database.js",
     "testEnvironment": "node",
     "coverageDirectory": "coverage",
-    "collectCoverageFrom": [
-      "**/*.js",
-      "!**/node_modules/**"
-    ]
+    "collectCoverageFrom": ["**/*.js", "!**/node_modules/**"]
   }
 }

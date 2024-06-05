@@ -1,5 +1,6 @@
 const { Client } = require('pg');
 const { exec } = require('child_process');
+const knexConfig = require("../knexfile");
 require('dotenv').config({ path: '../.env' });
 
 const client = new Client({
