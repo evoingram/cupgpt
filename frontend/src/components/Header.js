@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Checkbox from './Checkbox';
+import OptionsCheckboxes from './OptionsCheckboxes';
 
 function Header({
   query, setQuery, options, handleCheckboxChange, handleSearch,
