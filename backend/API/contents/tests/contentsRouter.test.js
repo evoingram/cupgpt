@@ -1,9 +1,9 @@
 const request = require('supertest');
 const express = require('express');
 const bodyParser = require('body-parser');
-const knexConfig = require('../../../knexfile');
-const knex = require('knex')(knexConfig.test);
 const createContentsRouter = require('../contentsRouter');
+const {generateKnexClient} = require("../../../utils/create_database");
+const knex = generateKnexClient('test');
 
 // Create an instance of the express app
 const app = express();

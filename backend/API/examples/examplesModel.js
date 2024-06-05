@@ -1,7 +1,8 @@
-const knexConfig = require('../../knexfile');
-const knex = require('knex')(knexConfig.development);
+const createExample = async (data, knex) => {
+    if (!data.content_id || !data.language || !data.example) {
+        throw new Error('Missing required fields: content_id, language, example');
+    }
 
-const createExample = async (data) => {
     try {
         return await knex('examples').insert(data).returning('id');
     } catch (error) {
@@ -10,7 +11,7 @@ const createExample = async (data) => {
     }
 };
 
-const getAllExamples = async () => {
+const getAllExamples = async (knex) => {
     try {
         return await knex('examples').select('*');
     } catch (error) {
@@ -19,27 +20,27 @@ const getAllExamples = async () => {
     }
 };
 
-const getExampleById = async (id) => {
+const getExampleById = async (id, knex) => {
     try {
-        return await knex('examples').where({id}).first();
+        return await knex('examples').where({ id }).first();
     } catch (error) {
         console.error(`Error retrieving example by ID (${id}):`, error);
         throw error;
     }
 };
 
-const updateExampleById = async (id, data) => {
+const updateExampleById = async (id, data, knex) => {
     try {
-        return await knex('examples').where({id}).update(data);
+        return await knex('examples').where({ id }).update(data);
     } catch (error) {
         console.error(`Error updating example by ID (${id}):`, error);
         throw error;
     }
 };
 
-const deleteExampleById = async (id) => {
+const deleteExampleById = async (id, knex) => {
     try {
-        return await knex('examples').where({id}).del();
+        return await knex('examples').where({ id }).del();
     } catch (error) {
         console.error(`Error deleting example by ID (${id}):`, error);
         throw error;

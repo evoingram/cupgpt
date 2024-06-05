@@ -7,7 +7,6 @@ const {
     searchContentByTopic,
 } = require('../contentsModel');
 const {generateKnexClient} = require("../../../utils/create_database");
-const {createTopic} = require("../../topics/topicsModel");
 
 describe('contentsModel', () => {
     const knex = generateKnexClient('test');
