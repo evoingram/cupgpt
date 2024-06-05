@@ -1,4 +1,3 @@
-// TODO:  Need more tests in topicsModel.js
 const createTopic = async (data, knex) => {
     try {
         return await knex('topics').insert(data).returning('id');

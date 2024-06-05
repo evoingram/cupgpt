@@ -1,5 +1,3 @@
-// TODO:  Need more tests in backend/index.js
-
 require('dotenv').config();
 const express = require('express');
 const knex = require('knex');

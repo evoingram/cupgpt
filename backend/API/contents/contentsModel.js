@@ -1,5 +1,4 @@
 
-// TODO:  Need more tests in contentsModel.js
 
 const createContent = async (data, knex) => {
     if (!data.topic_id || !data.description) {

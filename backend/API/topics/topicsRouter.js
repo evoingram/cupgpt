@@ -1,4 +1,3 @@
-// TODO:  Need more tests in topicsRouter.js
 const express = require('express');
 const { validateTopicData, validateLinkData } = require('./topicsMiddleware');
 

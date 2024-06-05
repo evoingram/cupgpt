@@ -1,5 +1,5 @@
-const { Client } = require('pg');
-const { exec } = require('child_process');
+const {Client} = require('pg');
+const {exec} = require('child_process');
 const knexConfig = require("../knexfile");
 require('dotenv').config({ path: '../.env' });
 
@@ -26,18 +26,17 @@ const runCommand = (command) => {
     });
 };
 
-const setupDatabase = async (dbName = process.env.DB_NAME) => {
+const setupDatabase = async () => {
     try {
         await client.connect();
-        console.log('Connected to the database', dbName);
+        console.log('Connected to the database');
 
-        const result = await client.query(`SELECT 1 FROM pg_database WHERE datname = '${dbName}'`);
-        console.log('result', JSON.stringify(result));
-        if (result === undefined) {
-            await client.query(`CREATE DATABASE ${dbName}`);
-            console.log(`Database ${dbName} created successfully`);
+        const result = await client.query(`SELECT 1 FROM pg_database WHERE datname = '${process.env.DB_NAME}'`);
+        if (result.rowCount === 0) {
+            await client.query(`CREATE DATABASE ${process.env.DB_NAME}`);
+            console.log(`Database ${process.env.DB_NAME} created successfully`);
         } else {
-            console.log(`Database ${dbName} already exists`);
+            console.log(`Database ${process.env.DB_NAME} already exists`);
         }
 
         await client.end();
@@ -72,4 +71,4 @@ const generateKnexClient = (typedKnexConfig) => {
 
 setupDatabase().then(r => console.log('database setup complete.'));
 
-module.exports = { runCommand, generateKnexClient, setupDatabase };
+module.exports = { runCommand, generateKnexClient };

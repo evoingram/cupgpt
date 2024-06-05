@@ -1,5 +1,3 @@
-// TODO:  Need more tests in examplesRouter.js
-
 const express = require('express');
 const { validateExampleData } = require('./examplesMiddleware');
 

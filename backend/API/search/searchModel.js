@@ -1,4 +1,3 @@
-// TODO:  Need more tests in searchModel.js
 const searchContentByTopic = async (topic, knex) => {
     try {
         console.log(`Searching content by topic: ${topic}`);

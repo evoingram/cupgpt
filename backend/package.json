@@ -11,7 +11,7 @@
   "scripts": {
     "start": "node index.js",
     "lint": "eslint . --ext .js,.jsx",
-    "lint:fix": "eslint .",
+    "lint:fix": "eslint . --ext .js,.jsx --fix",
     "sonar": "sonar-scanner",
     "test": "jest --coverage"
   },

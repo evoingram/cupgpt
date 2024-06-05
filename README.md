@@ -11,7 +11,7 @@ CupGPT Coding Monkey Wizard helps developers and students by generating high-qua
 - RESTful API with CRUD operations for coding topics, content, and examples
 - Search functionality to make ChatGPT queries more productive
 - CORS enabled for frontend-backend communication
-- Checkboxes to customize output prompt, including options for bulleted list formatting, accuracy, including sources, writing style, applying clean code principles and best practices, and up-to-date information
+- Checkboxes to customize output prompt, including options for bulleted list formatting, accuracy, including sources, writing style, and up-to-date information
 - Tip window to help the user write better queries
 - Tooltips on checkboxes to describe their functionality
 
@@ -74,7 +74,7 @@ CupGPT Coding Monkey Wizard helps developers and students by generating high-qua
 
 ## Testing
 
-- **Backend**: Jest (run with arguments --runInBand --coverage)
+- **Backend**: Jest
 - **Frontend**: Cypress
 
 ## How to Run the Project
