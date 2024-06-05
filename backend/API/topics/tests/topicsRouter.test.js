@@ -1,9 +1,103 @@
-/*
-Test Cases:
-Test case for POST /topics: Should create new topic.
-Test case for GET /topics: Should retrieve all topics.
-Test case for GET /topics/:id: Should retrieve specific topic by ID.
-Test case for PUT /topics/:id: Should update specific topic by ID.
-Test case for DELETE /topics/:id: Should delete specific topic by ID.
-Test case for POST /topics/link: Should link parent and child topics.
- */
+const request = require('supertest');
+const express = require('express');
+const bodyParser = require('body-parser');
+const createTopicsRouter = require('../topicsRouter');
+const { generateKnexClient } = require("../../../utils/create_database");
+const knex = generateKnexClient('test');
+
+// Create an instance of the express app
+const app = express();
+app.use(bodyParser.json());
+app.use('/topics', createTopicsRouter(knex));
+
+describe('topicsRouter', () => {
+    beforeAll(async () => {
+        console.log('Running migrations and seeds before all tests');
+        // Run migrations and seeds to set up the database for tests
+        await knex.migrate.latest();
+        await knex.seed.run();
+    });
+
+    beforeEach(async () => {
+        console.log('Clearing database tables before each test');
+        // Clear the tables before each test
+        await knex('topic_relationships').del();
+        await knex('examples').del();
+        await knex('content').del();
+        await knex('topics').del();
+
+        console.log('Inserting default topic');
+        await knex('topics').insert({ name: 'Default topic' });
+    });
+
+    afterAll(async () => {
+        console.log('Destroying database connection');
+        // Destroy the connection to the database
+        await knex.destroy();
+    });
+
+    describe('POST /topics', () => {
+        it('should create a new topic', async () => {
+            const response = await request(app)
+                .post('/topics')
+                .send({ name: 'New topic' });
+            console.log('Response:', response.body);
+            expect(response.status).toBe(201);
+            expect(response.body).toHaveProperty('id');
+        });
+    });
+
+    describe('GET /topics', () => {
+        it('should retrieve all topics', async () => {
+            const response = await request(app).get('/topics');
+            console.log('Response:', response.body);
+            expect(response.status).toBe(200);
+            expect(response.body).toBeInstanceOf(Array);
+        });
+    });
+
+    describe('GET /topics/:id', () => {
+        it('should retrieve a specific topic by ID', async () => {
+            const [id] = await knex('topics').insert({ name: 'Test topic' }).returning('id');
+            const response = await request(app).get(`/topics/${id}`);
+            console.log('Response:', response.body);
+            expect(response.status).toBe(200);
+            expect(response.body).toHaveProperty('id', id);
+        });
+    });
+
+    describe('PUT /topics/:id', () => {
+        it('should update a specific topic by ID', async () => {
+            const [id] = await knex('topics').insert({ name: 'Old topic' }).returning('id');
+            const response = await request(app)
+                .put(`/topics/${id}`)
+                .send({ name: 'Updated topic' });
+            console.log('Response:', response.body);
+            expect(response.status).toBe(200);
+            expect(response.body).toHaveProperty('message', 'Topic updated successfully');
+        });
+    });
+
+    describe('DELETE /topics/:id', () => {
+        it('should delete a specific topic by ID', async () => {
+            const [id] = await knex('topics').insert({ name: 'Topic to be deleted' }).returning('id');
+            const response = await request(app).delete(`/topics/${id}`);
+            console.log('Response:', response.body);
+            expect(response.status).toBe(200);
+            expect(response.body).toHaveProperty('message', 'Topic deleted successfully');
+        });
+    });
+
+    describe('POST /topics/link', () => {
+        it('should link parent and child topics', async () => {
+            const [parentId] = await knex('topics').insert({ name: 'Parent topic' }).returning('id');
+            const [childId] = await knex('topics').insert({ name: 'Child topic' }).returning('id');
+            const response = await request(app)
+                .post('/topics/link')
+                .send({ parent_topic_id: parentId, child_topic_id: childId });
+            console.log('Response:', response.body);
+            expect(response.status).toBe(201);
+            expect(response.body).toHaveProperty('message', 'Topics linked successfully');
+        });
+    });
+});

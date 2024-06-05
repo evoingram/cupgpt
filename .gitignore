@@ -56,3 +56,6 @@ jspm_packages/
 *.local
 *.env.local
 *.env.*.local
+
+# coverage reports
+backend/coverage
