@@ -35,6 +35,12 @@ function OptionsCheckboxes({ options, handleCheckboxChange }) {
                 onChange={handleCheckboxChange('searchInternet')}
                 title="Search the internet for the most up-to-date information."
             />
+            <Checkbox
+                label="Best Practices"
+                checked={options.bestPractices}
+                onChange={handleCheckboxChange('bestPractices')}
+                title="Apply clean code principles and best practices."
+            />
         </div>
     );
 }
