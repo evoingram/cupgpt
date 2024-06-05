@@ -84,7 +84,6 @@ describe('searchModel', () => {
         });
 
         it('should handle errors gracefully', async () => {
-            const originalKnex = knex;
             const mockKnex = jest.fn(() => {
                 throw new Error('Database error');
             });
