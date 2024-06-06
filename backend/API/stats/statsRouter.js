@@ -5,6 +5,7 @@ const statsModel = require('./statsModel');
 // Get count of topics
 router.get('/topics/count', async (req, res) => {
     try {
+        console.log(`GET /topics/count request: ${req.method} ${req.originalUrl}`);
         const count = await statsModel.getTopicsCount();
         res.status(200).json({count});
     } catch (error) {
@@ -16,6 +17,7 @@ router.get('/topics/count', async (req, res) => {
 // Get count of content items
 router.get('/content/count', async (req, res) => {
     try {
+        console.log(`GET /content/count request: ${req.method} ${req.originalUrl}`);
         const count = await statsModel.getContentCount();
         res.status(200).json({count});
     } catch (error) {
@@ -27,6 +29,7 @@ router.get('/content/count', async (req, res) => {
 // Get count of examples
 router.get('/examples/count', async (req, res) => {
     try {
+        console.log(`GET /examples/count request: ${req.method} ${req.originalUrl}`);
         const count = await statsModel.getExamplesCount();
         res.status(200).json({count});
     } catch (error) {

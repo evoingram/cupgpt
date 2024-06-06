@@ -7,6 +7,7 @@ const createExamplesRouter = (knex) => {
     // Create a new example for content
     router.post('/', validateExampleData, async (req, res) => {
         const { content_id, language, example } = req.body;
+        console.log(`POST /examples request: ${req.method} ${req.originalUrl} with content_id ${content_id} and language ${language} and example ${example}`);
         try {
             const [id] = await knex('examples').insert({
                 content_id,
@@ -24,6 +25,7 @@ const createExamplesRouter = (knex) => {
     // Retrieve a list of all examples
     router.get('/', async (req, res) => {
         try {
+            console.log(`GET /examples request: ${req.method} ${req.originalUrl}`);
             const examples = await knex('examples').select('*');
             res.status(200).json(examples);
         } catch (error) {
@@ -35,6 +37,7 @@ const createExamplesRouter = (knex) => {
     // Retrieve a specific example by ID
     router.get('/:id', async (req, res) => {
         const { id } = req.params;
+        console.log(`GET /examples/${id} request: ${req.method} ${req.originalUrl}`);
         try {
             const example = await knex('examples').where({ id }).first();
             if (!example) {
@@ -51,6 +54,7 @@ const createExamplesRouter = (knex) => {
     router.put('/:id', validateExampleData, async (req, res) => {
         const { id } = req.params;
         const { content_id, language, example } = req.body;
+        console.log(`PUT /examples/${id} request: ${req.method} ${req.originalUrl} with contentId ${content_id} and language ${language} and example ${example}`);
         try {
             const count = await knex('examples').where({ id }).update({
                 content_id,
@@ -71,6 +75,7 @@ const createExamplesRouter = (knex) => {
     // Delete a specific example by ID
     router.delete('/:id', async (req, res) => {
         const { id } = req.params;
+        console.log(`DELETE /examples/${id} request: ${req.method} ${req.originalUrl}`);
         try {
             const count = await knex('examples').where({ id }).del();
             if (count === 0) {

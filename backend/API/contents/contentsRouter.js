@@ -7,6 +7,7 @@ const createContentsRouter = (knex) => {
     // Create new content for a topic
     router.post('/', validateContentData, async (req, res) => {
         const { topic_id, description } = req.body;
+        console.log(`POST /contents request: ${req.method} ${req.originalUrl} with topic ID ${topic_id} and description ${description}`);
         try {
             const [id] = await knex('content').insert({
                 topic_id,
@@ -23,6 +24,7 @@ const createContentsRouter = (knex) => {
     // Retrieve a list of all content items
     router.get('/', async (req, res) => {
         try {
+            console.log(`GET /contents request: ${req.method} ${req.originalUrl}`);
             const content = await knex('content').select('*');
             res.status(200).json(content);
         } catch (error) {
@@ -34,12 +36,12 @@ const createContentsRouter = (knex) => {
     // Search for content by topic
     router.get('/search', async (req, res) => {
         const { topic } = req.query;
+        console.log(`GET /contents/search request: ${req.method} ${req.originalUrl} with topic ${topic}`);
         try {
             const parentId = await knex('topics').where({ name: topic }).select('id').first();
             if (!parentId) {
                 return res.status(404).json({ error: 'Topic not found' });
             }
-            console.log(`topic = ${topic}`);
             const results = await knex('content')
                 .where('topic_id', parentId.id)
                 .select('description');
@@ -54,6 +56,7 @@ const createContentsRouter = (knex) => {
     // Retrieve a specific content item by ID
     router.get('/:id', async (req, res) => {
         const { id } = req.params;
+        console.log(`GET /contents/${id} request: ${req.method} ${req.originalUrl}`);
         try {
             const contentItem = await knex('content').where({ id }).first();
             if (!contentItem) {
@@ -70,6 +73,7 @@ const createContentsRouter = (knex) => {
     router.put('/:id', validateContentData, async (req, res) => {
         const { id } = req.params;
         const { topic_id, description } = req.body;
+        console.log(`PUT /contents/${id} request: ${req.method} ${req.originalUrl} with topic_id ${topic_id} and description ${description}`);
         try {
             const count = await knex('content').where({ id }).update({
                 topic_id,
@@ -89,6 +93,7 @@ const createContentsRouter = (knex) => {
     // Delete a specific content item by ID
     router.delete('/:id', async (req, res) => {
         const { id } = req.params;
+        console.log(`DELETE /contents/${id} request: ${req.method} ${req.originalUrl}`);
         try {
             const count = await knex('content').where({ id }).del();
             if (count === 0) {

@@ -6,7 +6,7 @@ const createTopicsRouter = (knex) => {
 
     // Create a new topic
     router.post('/', validateTopicData, async (req, res) => {
-        console.log('POST /topics');
+        console.log(`POST /topics: ${req.method} ${req.originalUrl}`);
         const { name } = req.body;
         try {
             const [id] = await knex('topics').insert({ name }).returning('id');
@@ -19,7 +19,7 @@ const createTopicsRouter = (knex) => {
 
     // Retrieve a list of all topics
     router.get('/', async (req, res) => {
-        console.log('GET /topics');
+        console.log(`GET /topics: ${req.method} ${req.originalUrl}`);
         try {
             const topics = await knex('topics').select('*');
             res.status(200).json(topics);
@@ -32,7 +32,7 @@ const createTopicsRouter = (knex) => {
     // Retrieve a specific topic by ID
     router.get('/:id', async (req, res) => {
         const { id } = req.params;
-        console.log(`GET /topics/${id}`);
+        console.log(`GET /topics/${id}: ${req.method} ${req.originalUrl}`);
         try {
             const topic = await knex('topics').where({ id }).first();
             if (!topic) {
@@ -49,7 +49,7 @@ const createTopicsRouter = (knex) => {
     router.put('/:id', validateTopicData, async (req, res) => {
         const { id } = req.params;
         const { name } = req.body;
-        console.log(`PUT /topics/${id}`);
+        console.log(`PUT /topics/${id}: ${req.method} ${req.originalUrl} with name ${name}`);
         try {
             const count = await knex('topics').where({ id }).update({ name });
             if (count === 0) {
@@ -65,7 +65,7 @@ const createTopicsRouter = (knex) => {
     // Delete a specific topic by ID
     router.delete('/:id', async (req, res) => {
         const { id } = req.params;
-        console.log(`DELETE /topics/${id}`);
+        console.log(`DELETE /topics/${id}: ${req.method} ${req.originalUrl}`);
         try {
             const count = await knex('topics').where({ id }).del();
             if (count === 0) {
@@ -81,7 +81,7 @@ const createTopicsRouter = (knex) => {
     // Link parent and child topics
     router.post('/link', validateLinkData, async (req, res) => {
         const { parent_topic_id, child_topic_id } = req.body;
-        console.log('POST /topics/link');
+        console.log(`POST /topics/link: ${req.method} ${req.originalUrl} with parent topic ID ${parent_topic_id} and child topic ID ${child_topic_id}`);
         try {
             await knex('topic_relationships').insert({ parent_topic_id, child_topic_id });
             res.status(201).json({ message: 'Topics linked successfully' });

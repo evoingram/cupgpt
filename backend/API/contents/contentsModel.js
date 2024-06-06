@@ -53,7 +53,6 @@ const deleteContentById = async (id, knex) => {
 const searchContentByTopic = async (topic, knex) => {
     try {
         const parentId = await knex('topics').where({name: topic}).select('id').first();
-        console.log('Parent ID:', parentId);
 
         if (!parentId) {
             return [];
@@ -64,8 +63,6 @@ const searchContentByTopic = async (topic, knex) => {
             .where('topic_relationships.parent_topic_id', parentId.id)
             .orWhere('content.topic_id', parentId.id)
             .select('content.description');
-
-        console.log('Results:', results);
 
         return results || [];
     } catch (error) {

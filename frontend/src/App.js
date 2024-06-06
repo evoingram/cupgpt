@@ -23,11 +23,9 @@ function App() {
     const handleCheckboxChange = (option) => (event) => {
         const newOptions = { ...options, [option]: event.target.checked };
         setOptions(newOptions);
-        console.log('Updated options:', newOptions);
     };
 
     const handleSearch = async () => {
-        console.log('Sending request with options:', options);
         try {
             const response = await axios.post('http://localhost:3000/search/query', {
                 query,

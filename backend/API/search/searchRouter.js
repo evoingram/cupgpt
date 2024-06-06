@@ -6,6 +6,7 @@ const searchModel = require('./searchModel');
 // Search for content by topic using GET
 router.get('/content', async (req, res) => {
     const { topic } = req.query;
+    console.log(`GET /search/content request: ${req.method} ${req.originalUrl} with topic ${topic}`);
     try {
         const results = await searchModel.searchContentByTopic(topic);
         if (!results) {
@@ -21,10 +22,9 @@ router.get('/content', async (req, res) => {
 // Search for content by query using POST (newly added)
 router.post('/query', async (req, res) => {
     const { query, options } = req.body;
-    console.log('POST /search/query endpoint called');
+    console.log(`POST /search/query request: ${req.method} ${req.originalUrl} with query ${query} and options ${JSON.stringify(options)}`);
 
     try {
-        console.log('Received query:', query);
         const { results, rawOutput } = await handleSearchQuery(query, options);
         console.log('Search results:', results);
         console.log('Generated raw output:', rawOutput);
