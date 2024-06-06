@@ -1,5 +1,5 @@
 const request = require('supertest');
-const app = require('../index'); // Adjust the path as needed
+const app = require('../index');
 require('dotenv').config();
 
 describe('GET /', () => {

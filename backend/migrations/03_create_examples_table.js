@@ -1,4 +1,3 @@
-// migrations/03_create_examples_table.js
 exports.up = function (knex) {
     return knex.schema.createTable('examples', function (table) {
         table.increments('id').primary();

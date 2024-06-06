@@ -1,4 +1,3 @@
-// backend/API/topics/topicsMiddleware.js
 // Add any middleware functions if needed
 
 // Middleware for validating topic data

@@ -1,4 +1,3 @@
-// migrations/02_create_content_table.js
 exports.up = function (knex) {
     return knex.schema.createTable('content', function (table) {
         table.increments('id').primary();

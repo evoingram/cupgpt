@@ -5,7 +5,6 @@ const createContentsRouter = require('../contentsRouter');
 const {generateKnexClient} = require("../../../utils/create_database");
 const knex = generateKnexClient('test');
 
-// Create an instance of the express app
 const app = express();
 app.use(bodyParser.json());
 app.use('/contents', createContentsRouter(knex));
@@ -13,14 +12,12 @@ app.use('/contents', createContentsRouter(knex));
 describe('contentsRouter', () => {
     beforeAll(async () => {
         console.log('Running migrations and seeds before all tests');
-        // Run migrations and seeds to set up the database for tests
         await knex.migrate.latest();
         await knex.seed.run();
     });
 
     beforeEach(async () => {
         console.log('Clearing database tables before each test');
-        // Clear the tables before each test
         await knex('examples').del();
         await knex('topic_relationships').del();
         await knex('content').del();
@@ -42,7 +39,6 @@ describe('contentsRouter', () => {
 
     afterAll(async () => {
         console.log('Destroying database connection');
-        // Destroy the connection to the database
         await knex.destroy();
     });
 
@@ -101,13 +97,11 @@ describe('contentsRouter', () => {
     describe('GET /contents/search', () => {
         beforeEach(async () => {
             console.log('Clearing database tables before each test');
-            // Clear the tables before each test
             await knex('examples').del();
             await knex('topic_relationships').del();
             await knex('content').del();
             await knex('topics').del();
 
-            // Reset sequences
             await knex.raw('ALTER SEQUENCE examples_id_seq RESTART WITH 1');
             await knex.raw('ALTER SEQUENCE content_id_seq RESTART WITH 1');
             await knex.raw('ALTER SEQUENCE topic_relationships_id_seq RESTART WITH 1');
@@ -117,7 +111,6 @@ describe('contentsRouter', () => {
             const topicsBefore = await knex('topics').select('*');
             console.log(topicsBefore);
 
-            // Insert default topic to avoid duplicate primary key error
             if (topicsBefore.length === 0) {
                 console.log('Inserting default topic');
                 await knex('topics').insert({ id: 1, name: 'Default topic' });
@@ -138,7 +131,7 @@ describe('contentsRouter', () => {
                     [topicId] = await knex('topics').insert(topicData).returning('id');
                     isInserted = true;
                 } catch (error) {
-                    if (error.code === '23505') { // Unique constraint violation
+                    if (error.code === '23505') {
                         topicData.name = `Existing topic ${Math.floor(Math.random() * 10000)}`;
                     } else {
                         throw error;

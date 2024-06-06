@@ -20,13 +20,11 @@ const knex = generateKnexClient('test');
 describe('examplesModel', () => {
 
     beforeAll(async () => {
-        // Run migrations and seeds to set up the database for tests
         await knex.migrate.latest();
         await knex.seed.run();
     });
 
     afterAll(async () => {
-        // Destroy the connection to the database
         await knex.destroy();
     });
 

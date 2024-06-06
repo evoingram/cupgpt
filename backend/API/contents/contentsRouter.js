@@ -1,4 +1,3 @@
-// contentsRouter.js
 const express = require('express');
 const { validateContentData } = require('./contentsMiddleware');
 

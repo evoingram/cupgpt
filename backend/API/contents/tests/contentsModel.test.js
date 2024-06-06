@@ -12,13 +12,11 @@ describe('contentsModel', () => {
     const knex = generateKnexClient('test');
 
     beforeAll(async () => {
-        // Run migrations and seeds to set up the database for tests
         await knex.migrate.latest();
         await knex.seed.run();
     });
 
     afterAll(async () => {
-        // Destroy the connection to the database
         await knex.destroy();
     });
 
@@ -96,7 +94,6 @@ describe('contentsModel', () => {
 
     describe('searchContentByTopic', () => {
         beforeEach(async () => {
-            // Clear the tables before each test
             await knex('examples').del();
             await knex('content').del();
             await knex('topics').del();

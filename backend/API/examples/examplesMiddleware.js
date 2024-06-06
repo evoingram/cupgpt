@@ -1,4 +1,3 @@
-// backend/API/examples/examplesMiddleware.js
 // Middleware for validating example data
 const validateExampleData = (req, res, next) => {
     const {content_id, language, example} = req.body;

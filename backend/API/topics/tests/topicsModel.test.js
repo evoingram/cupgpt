@@ -14,20 +14,17 @@ describe('topicsModel', () => {
 
     beforeAll(async () => {
         console.log('Running migrations and seeds before all tests');
-        // Run migrations and seeds to set up the database for tests
         await knex.migrate.latest();
         await knex.seed.run();
     });
 
     afterAll(async () => {
         console.log('Destroying database connection');
-        // Destroy the connection to the database
         await knex.destroy();
     });
 
     beforeEach(async () => {
         console.log('Clearing database tables before each test');
-        // Clear the tables before each test
         await knex('examples').del();
         await knex('topic_relationships').del();
         await knex('content').del();

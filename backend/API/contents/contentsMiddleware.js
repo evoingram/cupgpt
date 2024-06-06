@@ -1,5 +1,3 @@
-// backend/API/content/contentsMiddleware.js
-
 // Middleware for validating content data
 const validateContentData = (req, res, next) => {
     const {topic_id, description} = req.body;

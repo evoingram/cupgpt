@@ -1,5 +1,3 @@
-// seeds/seed_data.js
-
 const topicsData = [
     {id: 1, name: 'Data Structures'},
     {id: 2, name: 'Algorithms'}

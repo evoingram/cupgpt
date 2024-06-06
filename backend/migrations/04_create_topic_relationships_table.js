@@ -1,4 +1,3 @@
-// migrations/03_create_topic_relationships_table.js
 exports.up = function (knex) {
     return knex.schema.createTable('topic_relationships', function (table) {
         table.increments('id').primary();

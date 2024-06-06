@@ -33,7 +33,6 @@ function App() {
                 query,
                 options,
             });
-            console.log(`response = ${JSON.stringify(response.data.results)}`)
             setResults(response.data.results);
             setRawOutput(response.data.rawOutput);
         } catch (error) {

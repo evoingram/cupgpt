@@ -5,7 +5,6 @@ const createTopicsRouter = require('../topicsRouter');
 const { generateKnexClient } = require("../../../utils/create_database");
 const knex = generateKnexClient('test');
 
-// Create an instance of the express app
 const app = express();
 app.use(bodyParser.json());
 app.use('/topics', createTopicsRouter(knex));
@@ -13,14 +12,12 @@ app.use('/topics', createTopicsRouter(knex));
 describe('topicsRouter', () => {
     beforeAll(async () => {
         console.log('Running migrations and seeds before all tests');
-        // Run migrations and seeds to set up the database for tests
         await knex.migrate.latest();
         await knex.seed.run();
     });
 
     beforeEach(async () => {
         console.log('Clearing database tables before each test');
-        // Clear the tables before each test
         await knex('topic_relationships').del();
         await knex('examples').del();
         await knex('content').del();
@@ -32,7 +29,6 @@ describe('topicsRouter', () => {
 
     afterAll(async () => {
         console.log('Destroying database connection');
-        // Destroy the connection to the database
         await knex.destroy();
     });
 

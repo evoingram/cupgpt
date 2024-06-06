@@ -16,7 +16,6 @@ app.use(cors({origin: 'http://localhost:3001'}));
 
 console.log('Initializing backend...');
 
-// Add this route at the top of your other routes
 app.get('/health', (req, res) => {
     res.status(200).send('Healthy');
 });
@@ -60,7 +59,6 @@ app.get('/verify-seed', async (req, res) => {
     }
 });
 
-// Routers
 app.use('/topics', (req, res, next) => {
     console.log('Accessing /topics route');
     next();
@@ -86,8 +84,6 @@ app.use('/stats', (req, res, next) => {
     next();
 }, statsRouter);
 
-
-// Error handling middleware
 app.use((err, req, res, next) => {
     console.error('Unhandled error:', err);
     res.status(500).json({error: 'Internal Server Error', details: err.message});
