@@ -31,8 +31,8 @@ CupGPT Coding Monkey Wizard helps developers and students by generating high-qua
 
 ## Testing
 
-- **Backend**: Jest
-- **Frontend**: Cypress
+- **Backend**: Jest (Heads up:  the current tests don't work.)
+- **Frontend**: Cypress (Cypress is installed, but no tests have been written.)
 
 ## How to Run the Project
 
