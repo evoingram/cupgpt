@@ -4,7 +4,6 @@ const knex = require('knex');
 const knexConfig = require('./knexfile');
 const db = knex(knexConfig.development);
 const cors = require('cors');
-const {Client} = require('pg');
 const topicsRouter = require('./API/topics/topicsRouter');
 const contentsRouter = require('./API/contents/contentsRouter');
 const examplesRouter = require('./API/examples/examplesRouter');
